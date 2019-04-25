@@ -1,17 +1,15 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 
-import { TwitterService } from '../services/twitter.service';
+import { LogicService } from '../services/logic.service';
 
 @Controller('twitter')
 export class TwitterController {
 
-  constructor(private readonly twitterService: TwitterService) {}
+  constructor(private readonly logicService: LogicService) {}
 
-  @Get('/:usernameA/:usernameB/followers')
-  getFollowers(
-    @Param('usernameA') usernameA: string,
-    @Param('usernameB') usernameB: string
-  ) {
-    return this.twitterService.getFollowers(usernameA);
+  @Get('followers')
+  getCommonFollowers(@Query('users') users: string[]) {
+    if (!Array.isArray(users) || users.length < 2) return [];
+    return this.logicService.getCommonFollowers(users);
   }
 }

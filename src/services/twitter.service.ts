@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import * as Twit from 'twit';
 import { environment } from '../environment';
 
+import { TwitterUser } from '../interfaces/twitter-user';
+
 @Injectable()
 export class TwitterService {
 
@@ -16,9 +18,17 @@ export class TwitterService {
     });
   }
 
-  async getFollowers(username: string): Promise<string[]> {
-    const followers = await this.get('followers/list', { screen_name: username });
-    return followers.map(x => x.screen_name);
+  async getFollowers(username: string): Promise<TwitterUser> {
+    let followers: string[] = [];
+    let cursor: number = -1;
+
+    do {
+      const data = await this.get('followers/list', { screen_name: username, cursor, count: 200 });
+      followers = [ ...followers, ...data.users.map(x => x.screen_name) ];
+      cursor = data.next_cursor;
+    } while(cursor > 0);
+
+    return { username, followers } as TwitterUser;
   }
 
   private get(url: string, data: any = null): Promise<any> {
