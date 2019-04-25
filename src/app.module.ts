@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 
+import { TwitterController } from './controllers/twitter.controller';
 import { TwitterService } from './services/twitter.service';
 
 @Module({
   imports: [],
-  controllers: [],
+  controllers: [
+    TwitterController
+  ],
   providers: [
     TwitterService
   ],

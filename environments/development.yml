@@ -1,8 +1,0 @@
-server:
-  port: 8080
-
-twitter:
-  consumer_key: MbZ3lDcjZYZrJmDeKew0MYio0
-  consumer_secret: SYda60o5Wib6uDMApcMMn6D12Zin1xUC7XGND9lBNO8sZHWqA8
-  access_token: 88589447-EutWtVUcBbTYH5zYmy4bBC0BlJHpTjtkkXTh00T30
-  access_token_secret: AnjuVfpEZh0qpdDi96B4HZr3ThVm8fdBOgecnFvksogbN
