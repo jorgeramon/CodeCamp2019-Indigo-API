@@ -28,6 +28,7 @@ export class TwitterService {
       cursor = data.next_cursor;
     } while(cursor > 0);
 
+    console.log("# followers of", username, followers.length)
     return { username, followers } as TwitterUser;
   }
 

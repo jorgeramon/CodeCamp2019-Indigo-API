@@ -27,7 +27,9 @@ export class LogicService {
       await Promise.all(
         followers.map(async (x) =>  {
           await this.graphService.createUser(x.username)
-          console.log(x);
+
+          console.log(JSON.stringify(x, null, 2));
+
           return Promise.all(x.followers.map(y => this.graphService.createFollower(x.username, y)));
         })
       );

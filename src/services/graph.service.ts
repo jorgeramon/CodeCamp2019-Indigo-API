@@ -19,7 +19,7 @@ export class GraphService {
 
   findCommonFollowers(usernameA: string, usernameB: string): Promise<any> {
     const query = `
-      MATCH (n:User { username: {usernameA} })-[:FOLLOWS]->(m)<-[:FOLLOWS]-(n2: User { username: {usernameB} })
+      MATCH (n:User { username: {usernameA} })<-[:FOLLOWS]-(m)-[:FOLLOWS]->(n2: User { username: {usernameB} })
       RETURN m
     `;
 
@@ -42,7 +42,7 @@ export class GraphService {
       MATCH (n1:User { username: {username} })
       MERGE (n2:User { username: {follower} })
         ON CREATE SET n2.analyzed = false
-      MERGE (n1)-[:FOLLOWS]->(n2)
+      MERGE (n1)<-[:FOLLOWS]-(n2)
       RETURN n1.username, n2.username
     `;
 
